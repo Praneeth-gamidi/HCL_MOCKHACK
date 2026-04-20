@@ -20,6 +20,7 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
         // Check if email already exists
         Optional<User> existingUser = userRepository.findByEmail(userRequestDTO.getEmail());
@@ -31,22 +32,31 @@ public class UserService {
         User savedUser = userRepository.save(user);
         return UserMapper.toResponseDTO(savedUser);
     }
+
     public List<UserResponseDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
                 .map(UserMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
+
     public List<UserResponseDTO> getUsersByRole(Role role) {
         List<User> users = userRepository.findByRole(role);
         return users.stream()
                 .map(UserMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
+
     public Optional<UserResponseDTO> getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.map(UserMapper::toResponseDTO);
     }
+
+    public User getUserEntityById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
+
     public Optional<UserResponseDTO> getUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         return user.map(UserMapper::toResponseDTO);

@@ -37,6 +37,11 @@ public class LocationService {
         return location.map(LocationMapper::toResponseDTO);
     }
 
+    public Location getLocationEntityById(Long id) {
+        return locationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Location not found with id: " + id));
+    }
+
     public LocationResponseDTO updateLocation(Long id, LocationRequestDTO locationRequestDTO) {
         Optional<Location> existingLocationOpt = locationRepository.findById(id);
         if (existingLocationOpt.isEmpty()) {

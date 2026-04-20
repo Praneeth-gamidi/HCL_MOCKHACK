@@ -1,6 +1,6 @@
 package com.example.MPRRT.entity;
-import jakarta.annotation.GeneratedValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data; 

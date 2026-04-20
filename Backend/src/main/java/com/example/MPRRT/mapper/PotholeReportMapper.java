@@ -21,6 +21,8 @@ public final class PotholeReportMapper {
         entity.setDescription(dto.getDescription());
         entity.setSeverityLevel(dto.getSeverity());
         entity.setImageUrl(dto.getImagePath());
+        entity.setContactNumber(dto.getContactNumber());
+        entity.setContactNumber(dto.getContactNumber());
         entity.setReportedBy(reportedBy);
         entity.setLocation(location);
         entity.setReportStatus(ReportStatus.REPORTED);

@@ -49,7 +49,7 @@ public class LocationService {
         }
 
         Location existingLocation = existingLocationOpt.get();
-        existingLocation.setAreaName(locationRequestDTO.getAddress());
+        existingLocation.setAreaName(locationRequestDTO.getAreaName());
         existingLocation.setCity(locationRequestDTO.getCity());
         existingLocation.setState(locationRequestDTO.getState());
         existingLocation.setLatitude(locationRequestDTO.getLatitude());

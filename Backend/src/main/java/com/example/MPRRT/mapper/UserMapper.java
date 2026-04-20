@@ -20,6 +20,11 @@ public final class UserMapper {
         entity.setPhoneNumber(dto.getPhone());
         entity.setPassword(dto.getPassword());
         entity.setRole(dto.getRole());
+        entity.setAddress(dto.getAddress());
+        entity.setCity(dto.getCity());
+        entity.setState(dto.getState());
+        entity.setZipCode(dto.getZipCode());
+        entity.setIsActive(true);
         return entity;
     }
 
@@ -37,7 +42,13 @@ public final class UserMapper {
         dto.setEmail(entity.getEmail());
         dto.setPhone(entity.getPhoneNumber());
         dto.setRole(entity.getRole());
+        dto.setAddress(entity.getAddress());
+        dto.setCity(entity.getCity());
+        dto.setState(entity.getState());
+        dto.setZipCode(entity.getZipCode());
+        dto.setIsActive(entity.getIsActive());
         dto.setCreatedDate(entity.getCreatedAt());
+        dto.setUpdatedDate(entity.getUpdatedAt());
         return dto;
     }
 

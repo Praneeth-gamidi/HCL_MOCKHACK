@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.MPRRT.dto.UserRequestDTO;
 import com.example.MPRRT.dto.UserResponseDTO;
@@ -25,6 +26,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Transactional
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
         // Check if email already exists
         Optional<User> existingUser = userRepository.findByEmail(userRequestDTO.getEmail());
@@ -38,7 +40,9 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         
-        user.setCreatedAt(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        user.setCreatedAt(now);
+        user.setUpdatedAt(now);
         User savedUser = userRepository.save(user);
         return UserMapper.toResponseDTO(savedUser);
     }

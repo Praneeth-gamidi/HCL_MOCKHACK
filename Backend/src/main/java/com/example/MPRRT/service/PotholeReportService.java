@@ -24,8 +24,8 @@ public class PotholeReportService {
     private final LocationService locationService;
 
     public PotholeReportService(PotholeReportRepository reportRepository,
-                                UserService userService,
-                                LocationService locationService) {
+            UserService userService,
+            LocationService locationService) {
         this.reportRepository = reportRepository;
         this.userService = userService;
         this.locationService = locationService;
@@ -65,7 +65,8 @@ public class PotholeReportService {
 
     public PotholeReportResponseDTO approveReport(Long id) {
         PotholeReport report = getReportEntityById(id);
-        if (report.getReportStatus() != ReportStatus.REPORTED && report.getReportStatus() != ReportStatus.UNDER_REVIEW) {
+        if (report.getReportStatus() != ReportStatus.REPORTED
+                && report.getReportStatus() != ReportStatus.UNDER_REVIEW) {
             throw new RuntimeException("Report cannot be approved in current status: " + report.getReportStatus());
         }
         report.setReportStatus(ReportStatus.APPROVED);

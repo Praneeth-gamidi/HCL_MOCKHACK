@@ -18,6 +18,7 @@ public final class UserMapper {
         entity.setName(buildFullName(dto.getFirstName(), dto.getLastName()));
         entity.setEmail(dto.getEmail());
         entity.setPhoneNumber(dto.getPhone());
+        entity.setPassword(dto.getPassword());
         entity.setRole(dto.getRole());
         return entity;
     }

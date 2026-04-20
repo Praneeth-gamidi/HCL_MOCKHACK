@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.MPRRT.dto.PotholeReportRequestDTO;
 import com.example.MPRRT.dto.PotholeReportResponseDTO;
@@ -31,6 +32,7 @@ public class PotholeReportService {
         this.locationService = locationService;
     }
 
+    @Transactional
     public PotholeReportResponseDTO createReport(PotholeReportRequestDTO dto) {
         User citizen = userService.getUserEntityById(dto.getReportedById());
         if (citizen.getRole() != Role.CITIZEN) {
@@ -63,6 +65,7 @@ public class PotholeReportService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public PotholeReportResponseDTO approveReport(Long id) {
         PotholeReport report = getReportEntityById(id);
         if (report.getReportStatus() != ReportStatus.REPORTED
@@ -74,6 +77,7 @@ public class PotholeReportService {
         return PotholeReportMapper.toResponseDTO(reportRepository.save(report));
     }
 
+    @Transactional
     public PotholeReportResponseDTO rejectReport(Long id) {
         PotholeReport report = getReportEntityById(id);
         if (report.getReportStatus() == ReportStatus.REJECTED) {

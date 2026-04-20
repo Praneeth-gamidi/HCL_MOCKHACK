@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.MPRRT.dto.WorkOrderRequestDTO;
 import com.example.MPRRT.dto.WorkOrderResponseDTO;
@@ -35,6 +36,7 @@ public class WorkOrderService {
         this.slaService = slaService;
     }
 
+    @Transactional
     public WorkOrderResponseDTO createWorkOrder(WorkOrderRequestDTO dto, Long supervisorId) {
         PotholeReport report = reportService.getReportEntityById(dto.getPotholeReportId());
 

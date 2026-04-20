@@ -14,6 +14,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "users")
 @Data 
@@ -38,6 +39,14 @@ public class User {
     @Column(nullable = false)
     private Role role;
     
+    private String address;
+    private String city;
+    private String state;
+    private String zipCode;
+    
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean isActive = true;
+    
     private LocalDateTime createdAt;
-
+    private LocalDateTime updatedAt;
 }

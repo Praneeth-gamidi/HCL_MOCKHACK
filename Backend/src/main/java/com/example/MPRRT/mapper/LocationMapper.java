@@ -17,7 +17,7 @@ public final class LocationMapper {
         Location entity = new Location();
         entity.setLatitude(dto.getLatitude());
         entity.setLongitude(dto.getLongitude());
-        entity.setAreaName(dto.getAddress());
+        entity.setAreaName(dto.getAreaName());
         entity.setCity(dto.getCity());
         entity.setState(dto.getState());
         return entity;

@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.MPRRT.dto.UserRequestDTO;
@@ -21,6 +22,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
         // Check if email already exists
         Optional<User> existingUser = userRepository.findByEmail(userRequestDTO.getEmail());
@@ -28,6 +32,12 @@ public class UserService {
             throw new RuntimeException("User with email " + userRequestDTO.getEmail() + " already exists");
         }
         User user = UserMapper.toEntity(userRequestDTO);
+        
+        // Hash password before saving
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        
         user.setCreatedAt(LocalDateTime.now());
         User savedUser = userRepository.save(user);
         return UserMapper.toResponseDTO(savedUser);
@@ -60,5 +70,12 @@ public class UserService {
     public Optional<UserResponseDTO> getUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         return user.map(UserMapper::toResponseDTO);
+    }
+
+    /**
+     * Validate user password (for login)
+     */
+    public boolean validatePassword(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 }
